@@ -1,0 +1,47 @@
+schema_version: 1
+
+context:
+  name: read-version
+  version: "0.3.2"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/read_version-${{ version }}.tar.gz
+  sha256: 3f2d30852bce9174b244f7f29aaebf4e79904c6ed51a19716325015ff306ce3f
+
+build:
+  number: 2
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - setuptools >=46.4.0
+    - wheel >=0.32,<1.dev0
+    - pip
+  run:
+    - python >=${{ python_min }}
+    - setuptools
+
+tests:
+  - python:
+      imports:
+        - read_version
+      pip_check: true
+      python_version:
+        - ${{ python_min }}
+        - "*"
+
+about:
+  summary: Extract your project's __version__ variable
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/jwodder/read_version
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
