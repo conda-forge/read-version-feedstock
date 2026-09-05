@@ -32,7 +32,9 @@ tests:
       imports:
         - read_version
       pip_check: true
-      python_version: ${{ python_min }}
+      python_version:
+        - ${{ python_min }}
+        - "*"
 
 about:
   summary: Extract your project's __version__ variable
